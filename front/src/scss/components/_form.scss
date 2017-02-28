@@ -1,0 +1,72 @@
+.signin-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $white;
+    padding: 50px 60px;
+    border: 1px solid $light-grey;
+    border-radius: $border-radius;
+}
+
+@media screen and (max-width: $tablet) {
+    .signin-form {
+        position: static;
+        transform: translate(0px, 0px);
+        padding: 40px 20px;
+        margin: 20px;
+    }
+}
+
+.form-title {
+    margin-bottom: 20px;
+
+    h1 {
+        font-size: 1.2em;
+    }
+}
+
+.form-flash {
+    margin-bottom: 30px;
+    color: $danger-color;
+}
+
+.form-control {
+    margin-bottom: 20px;
+
+    input, label {
+        display: block;
+    }
+
+    label {
+        font-weight: 600;
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%;
+        border: 1px solid $light-grey;
+        border-radius: $border-radius;
+        padding: 10px 10px;
+        color: $black;
+    }
+
+    input[type="submit"] {
+        background-color: $main-color;
+        color: $white;
+        border: none;
+        border-radius: $border-radius;
+        transition: $transition;
+        padding: 12px 8px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $main-color-hover;
+        }
+    }
+}
+
+.form .form-control:last-child {
+    margin-top: 40px;
+}
