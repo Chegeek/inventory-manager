@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Product</title>
+
+        <!-- Links -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+        <!--[if lt IE 9]>
+          <script src="assets/js/vendor/html5shiv.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <a href="#">
+                    <img src="assets/img/logo.png" alt="Pokedex Manager">
+                </a>
+            </div>
+
+            <div class="sidebar-nav">
+                <nav>
+                    <ul>
+                        <li><a href="#" title="Dashboard"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
+                        <li><a href="#" title="Products"><i class="fa fa-tags" aria-hidden="true"></i> Products</a></li>
+                        <li><a href="#" title="Categories"><i class="fa fa-anchor" aria-hidden="true"></i> Categories</a></li>
+                        <li><a href="#" title="Users"><i class="fa fa-users" aria-hidden="true"></i> Users</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="main-header">
+                <div class="main-header-infos">
+                    <h1 class="main-header-title">Macbook Pro 15 inch 2016</h1>
+                    <span class="main-header-breadcrumb">Home > Products > Macbook Pro 15 inch 2016</span>
+                </div>
+
+                <div class="main-header-session">
+                    <span class="main-header-session-user">Welcome Greg!</span>
+                    <a class="main-header-session-session" href="#">Sign out</a>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="single-product">
+                    <form action="#" method="post">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="form-control">
+                                    <label for="title">Title</label>
+                                    <input type="text" name="title" placeholder="Your title" id="title">
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="form-control">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" id="description" rows="8" cols="80"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3>Revisions</h3>
+                                <ul>
+                                    <li>Greg on Monday, 23th 2017.</li>
+                                    <li>Greg on Monday, 23th 2017.</li>
+                                    <li>Greg on Monday, 23th 2017.</li>
+                                    <li>Greg on Monday, 23th 2017.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="form-control">
+                                    <label for="category">Category</label>
+                                    <select class="" name="category">
+                                        <option value="test1">Test 1</option>
+                                        <option value="test2">Test 2</option>
+                                        <option value="test3">Test 3</option>
+                                        <option value="test4">Test 4</option>
+                                        <option value="test5">Test 5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="form-control">
+                                    <label for="price">Price</label>
+                                    <input type="number" name="price" placeholder="Your price" id="price">
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="form-control">
+                                    <label for="quantity">Quantity</label>
+                                    <input type="number" name="quantity" placeholder="Your quantity" id="quantity">
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3>History</h3>
+                                <p>This product was created by <strong>Greg</strong> on December 27th, 2016.</p>
+                            </div>
+                        </div>
+
+                        <div class="single-product-submit">
+                            <button type="submit" name="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="assets/js/app.js"></script>
+    </body>
+</html>

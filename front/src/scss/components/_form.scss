@@ -42,6 +42,7 @@
         font-weight: 600;
         font-size: 1em;
         margin-bottom: 10px;
+        color: $black;
     }
 
     input {
@@ -50,6 +51,26 @@
         border-radius: $border-radius;
         padding: 10px 10px;
         color: $black;
+        transition: $transition;
+
+        &:focus {
+            border-color: $main-color;
+        }
+    }
+
+    textarea {
+        border: 1px solid $light-grey;
+        border-radius: $border-radius;
+        padding: 10px 10px;
+        color: $black;
+        resize: vertical;
+        min-height: 260px;
+        transition: $transition;
+
+        &:focus, &:active {
+            border-color: $main-color;
+            outline: none;
+        }
     }
 
     input[type="submit"] {
@@ -63,6 +84,22 @@
         &:hover {
             cursor: pointer;
             background-color: $main-color-hover;
+        }
+    }
+
+    select {
+        border: 1px solid $light-grey;
+        border-radius: $border-radius;
+        padding: 10px 10px;
+        color: $black;
+        background-color: $white;
+        width: 100%;
+        height: 40px;
+        transition: $transition;
+
+        &:focus, &:active {
+            border-color: $main-color;
+            outline: none;
         }
     }
 }

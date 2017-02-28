@@ -1,9 +1,18 @@
 .main {
+    position: fixed;
+    left: $sidebar-width;
+    right: 0;
+    top: 0;
+    bottom: 0;
     width: 100%;
-    margin-left: $sidebar-width;
+    overflow-y: scroll;
 }
 
 .main-header {
+    position: fixed;
+    top: 0;
+    left: $sidebar-width;
+    right: 0;
     width: calc(100% - #{$sidebar-width});
     background-color: $main-color;
     padding: 20px 24px;
@@ -11,6 +20,7 @@
     flex-direction: row;
     justify-content: space-between;
     color: $white;
+    z-index: $zindex-6;
 }
 
 .main-header-title {
@@ -50,5 +60,6 @@
 
 .main-content {
     width: calc(100% - #{$sidebar-width});
-    padding: 40px 20px;
+    padding: 20px 20px 80px 20px;
+    margin-top: 87px;
 }
