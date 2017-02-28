@@ -1,0 +1,31 @@
+environment: 'dev'
+
+dev:
+    url: 'http://localhost:8888/'
+    database:
+        username: 'root'
+        password: 'root'
+        name: 'blog'
+        host: 'localhost'
+        type: 'mysql'
+    debug: true
+    twig:
+        cache: false
+    minify:
+        stylesheet: false
+        javascript: false
+
+prod:
+    url: 'http://localhost:8888/'
+    database:
+        username: 'root'
+        password: 'root'
+        name: 'blog'
+        host: 'localhost'
+        type: 'mysql'
+    debug: false
+    twig:
+        cache: true
+    minify:
+        stylesheet: true
+        javascript: true
