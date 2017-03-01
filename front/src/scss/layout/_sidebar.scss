@@ -40,5 +40,9 @@
             cursor: pointer;
             background-color: $second-color-hover;
         }
+
+        &.active {
+            background-color: $second-color-hover;
+        }
     }
 }

@@ -43,13 +43,23 @@ class App {
                 return substr($content, 0, 300) . '...';
             });
 
-            $url = new \Twig_Function('url', function ($id, $slug, $post_type) {
+            $url = new \Twig_Function('url', function ($slug, $id = null, $post_type = null) {
                 if($post_type == 'post') return Settings::getConfig()['url'] . 'posts/' . $id . '-' . $slug;
+                else return Settings::getConfig()['url'] . $slug;
             });
+
+            $title = new \Twig_Function('title', function ($title = null) {
+                if($title) return $title . ' - ' . Settings::getConfig()['name'];
+                else return Settings::getConfig()['name'];
+            });
+
 
             self::$twig->addFunction($asset);
             self::$twig->addFunction($excerpt);
             self::$twig->addFunction($url);
+            self::$twig->addFunction($title);
+
+            isset($_SESSION['auth']) ? self::$twig->addGlobal('auth', $_SESSION['auth']) : self::$twig->addGlobal('auth', '');
         }
 
         return self::$twig;
@@ -61,7 +71,7 @@ class App {
         $controller->render('pages/404.twig', []);
     }
 
-    public static function redirect($path) {
+    public static function redirect($path = '') {
         $location = 'Location: ' . Settings::getConfig()['url'] . $path;
         header($location);
     }

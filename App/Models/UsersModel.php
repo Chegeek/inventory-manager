@@ -10,7 +10,7 @@ class UsersModel extends Model {
         $user = App::getDb()->prepare('SELECT * FROM users WHERE username = ?', [$username], true);
 
         if($user) {
-            if($user->password === sha1($password)) {
+            if($user->password === $password) {
                 $_SESSION['auth'] = $user->id;
 
                 return true;
@@ -20,8 +20,11 @@ class UsersModel extends Model {
         return false;
     }
 
-    public function logged(){
-        return isset($_SESSION['auth']);
+    public static function logged(){
+        if(!isset($_SESSION['auth'])) {
+            App::redirect('signin');
+            exit;
+        }
     }
 
 }

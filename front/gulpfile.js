@@ -14,7 +14,7 @@ const ip           = require('ip').address()
 
 let config = {
     'src' : 'src/',
-    'dist': 'dist/',
+    'dist': '../public/',
     'ip': ip,
     'port': 8080
 }

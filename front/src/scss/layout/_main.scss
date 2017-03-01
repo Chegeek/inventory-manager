@@ -33,6 +33,14 @@
 .main-header-breadcrumb {
     font-size: 0.8em;
     color: $light-grey;
+
+    a {
+        color: $white;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .main-header-session {

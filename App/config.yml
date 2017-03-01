@@ -1,11 +1,12 @@
 environment: 'dev'
 
 dev:
+    name: 'Pokedex'
     url: 'http://localhost:8888/'
     database:
         username: 'root'
         password: 'root'
-        name: 'blog'
+        name: 'inventory'
         host: 'localhost'
         type: 'mysql'
     debug: true
@@ -14,6 +15,7 @@ dev:
     minify:
         stylesheet: false
         javascript: false
+    salt: '8dezY!2deH'
 
 prod:
     url: 'http://localhost:8888/'
