@@ -109,6 +109,26 @@ class CategoriesController extends Controller {
         }
     }
 
+    public function delete($id) {
+        if(!empty($_POST)) {
+            $model = new CategoriesModel();
+            $model->delete($id);
+
+            App::redirect('admin/categories');
+        }
+
+        else {
+            $model = new CategoriesModel();
+            $data = $model->find($id);
+            $this->render('pages/admin/categories_delete.twig', [
+                'title'       => 'Delete category',
+                'description' => 'Categories - Just a simple inventory management system.',
+                'page'        => 'categories',
+                'data'        => $data
+            ]);
+        }
+    }
+
     public function single($id, $slug) {
         $model = new CategoriesModel();
         $data  = $model->find($id);

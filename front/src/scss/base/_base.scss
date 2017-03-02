@@ -74,6 +74,14 @@ input:focus {
         }
     }
 
+    &-danger {
+        background-color: $danger-color;
+
+        &:hover {
+            background-color: $danger-color-hover;
+        }
+    }
+
     &:hover {
         box-shadow: $box-shadow-action-hover;
     }
@@ -100,6 +108,10 @@ input:focus {
 
         &:hover {
             cursor: pointer;
+        }
+
+        &:focus, &:active {
+            outline: none;
         }
     }
 }
