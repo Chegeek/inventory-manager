@@ -24,14 +24,12 @@ class Model {
             $attributes[] = $v;
         }
 
-        $attributes[] = $id;
         $sql_part = implode(', ', $sql_parts);
-
-        return $this->query("UPDATE {$this->table} SET $sql_part WHERE id = ?", $attributes, true);
+        App::getDb()->execute("UPDATE {$this->table} SET $sql_part WHERE id = $id", $attributes);
     }
 
     public function delete($id){
-        return $this->query("DELETE FROM {$this->table} WHERE id = ?", [$id], true);
+        App::getDb()->execute("DELETE FROM {$this->table} WHERE id = $id");
     }
 
     public function create($fields) {
@@ -45,7 +43,7 @@ class Model {
 
         $sql_part = implode(', ', $sql_parts);
 
-        App::getDb()->insert("INSERT INTO {$this->table} SET $sql_part", $attributes);
+        App::getDb()->execute("INSERT INTO {$this->table} SET $sql_part", $attributes);
     }
 
     public function query($statement, $attributes = null, $one = false) {

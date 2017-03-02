@@ -45,6 +45,18 @@ $router->post('/admin/categories/add/', function() {
     $controller->add();
 });
 
+$router->get('/admin/categories/:id/edit/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\CategoriesController();
+    $controller->edit($id);
+})->with('id', '[0-9]+');
+
+$router->post('/admin/categories/:id/edit/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\CategoriesController();
+    $controller->edit($id);
+})->with('id', '[0-9]+');
+
 $router->get('/posts/:id-:slug/', function($id, $slug) {
     $controller = new \App\Controllers\ProductsController();
     $controller->single($id, $slug);

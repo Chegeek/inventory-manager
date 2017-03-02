@@ -57,9 +57,15 @@ class Database {
         return $data;
     }
 
-    public function insert($statement, $attributes) {
-        $req = $this->getPDO()->prepare($statement);
-        $req->execute($attributes);
+    public function execute($statement, $attributes = false) {
+        if(!$attributes) {
+            $this->getPDO()->query($statement);
+        }
+
+        else {
+            $req = $this->getPDO()->prepare($statement);
+            $req->execute($attributes);
+        }
     }
     
 }
