@@ -1,0 +1,45 @@
+{% extends 'layouts/default.twig' %}
+
+{% block content %}
+    <div class="categories">
+        <div class="categories-grid">
+            {% for category in categories %}
+                <div class="category-element">
+                    <div class="category">
+                        <div class="category-actions">
+                            <div class="category-actions-delete">
+                                <a href="{{ url('categories/' ~ category.id ~ '/delete') }}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+                            <div class="category-actions-edit">
+                                <a href="{{ url('categories/' ~ category.id ~ '/edit') }}">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <h2 class="category-title">{{ category.title }}</h2>
+                        <p class="category-description">{{ category.description }}</p>
+                        <span class="category-creation">{{ category.created_at }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="main-action main-action-success">
+            <a href="{{ url('categories/add') }}" title="Add category"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <a href="{{ url('admin/dashboard') }}" title="Dashboard">Dashboard</a> > <a href="{{ url('admin/categories') }}" title="Categories">Categories</a>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/categories.min.js') }}"></script>
+{% endblock %}

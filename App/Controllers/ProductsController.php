@@ -20,8 +20,20 @@ class ProductsController extends Controller {
 
         $this->render('pages/admin/dashboard.twig', [
             'title'       => 'Dashboard',
-            'description' => 'Just a simple inventory management system.',
+            'description' => 'Dashboard - Just a simple inventory management system.',
             'page'        => 'dashboard',
+            'products'    => $data
+        ]);
+    }
+
+    public function all() {
+        $model = new ProductsModel();
+        $data  = $model->all();
+
+        $this->render('pages/admin/products.twig', [
+            'title'       => 'Products',
+            'description' => 'Products - Just a simple inventory management system.',
+            'page'        => 'products',
             'products'    => $data
         ]);
     }

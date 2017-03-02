@@ -44,8 +44,7 @@ class App {
             });
 
             $url = new \Twig_Function('url', function ($slug, $id = null, $post_type = null) {
-                if($post_type == 'post') return Settings::getConfig()['url'] . 'posts/' . $id . '-' . $slug;
-                else return Settings::getConfig()['url'] . $slug;
+                return Settings::getConfig()['url'] . $slug;
             });
 
             $title = new \Twig_Function('title', function ($title = null) {
@@ -74,6 +73,13 @@ class App {
     public static function redirect($path = '') {
         $location = 'Location: ' . Settings::getConfig()['url'] . $path;
         header($location);
+    }
+
+    public static function secured() {
+        if(!isset($_SESSION['auth'])) {
+            self::redirect('signin');
+            exit;
+        }
     }
 
 }

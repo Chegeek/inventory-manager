@@ -16,8 +16,21 @@ $router->get('/', function() {
 });
 
 $router->get('/admin/dashboard/', function() {
+    App::secured();
     $controller = new \App\Controllers\ProductsController();
     $controller->index();
+});
+
+$router->get('/admin/products/', function() {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->all();
+});
+
+$router->get('/admin/categories/', function() {
+    App::secured();
+    $controller = new \App\Controllers\CategoriesController();
+    $controller->all();
 });
 
 $router->get('/posts/:id-:slug/', function($id, $slug) {

@@ -17,11 +17,9 @@
     "gulp-imagemin": "^3.0.3",
     "gulp-minify": "0.0.14",
     "gulp-notify": "^2.2.0",
-    "gulp-open": "^2.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "ip": "^1.1.4"
+    "gulp-sourcemaps": "^1.6.0"
   }
 }
