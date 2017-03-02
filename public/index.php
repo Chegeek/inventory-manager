@@ -33,6 +33,18 @@ $router->get('/admin/categories/', function() {
     $controller->all();
 });
 
+$router->get('/admin/categories/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\CategoriesController();
+    $controller->add();
+});
+
+$router->post('/admin/categories/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\CategoriesController();
+    $controller->add();
+});
+
 $router->get('/posts/:id-:slug/', function($id, $slug) {
     $controller = new \App\Controllers\ProductsController();
     $controller->single($id, $slug);

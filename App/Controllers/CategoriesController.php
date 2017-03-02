@@ -2,9 +2,11 @@
 namespace App\Controllers;
 
 use \App\System\App;
+use \App\System\FormValidator;
 use \App\System\Settings;
 use \App\Controllers\Controller;
 use \App\Models\CategoriesModel;
+use \DateTime;
 
 class CategoriesController extends Controller {
 
@@ -18,6 +20,48 @@ class CategoriesController extends Controller {
             'page'        => 'categories',
             'categories'  => $data
         ]);
+    }
+
+    public function add() {
+        if(!empty($_POST)) {
+            $title       = isset($_POST['title']) ? $_POST['title'] : '';
+            $description = isset($_POST['description']) ? $_POST['description'] : '';
+
+            $validator = new FormValidator();
+            $validator->notEmpty('title', $title, "Your title must not be empty");
+            $validator->notEmpty('description', $description, "Your description must not be empty");
+
+            if($validator->isValid()) {
+                $model = new CategoriesModel();
+                $model->create([
+                    'title'       => $title,
+                    'description' => $description
+                ]);
+
+                App::redirect('admin/categories');
+            }
+
+            else {
+                $this->render('pages/admin/categories_add.twig', [
+                    'title'       => 'Add category',
+                    'description' => 'Categories - Just a simple inventory management system.',
+                    'page'        => 'categories',
+                    'errors'      => $validator->getErrors(),
+                    'data'        => [
+                        'title'       => $title,
+                        'description' => $description
+                    ]
+                ]);
+            }
+        }
+
+        else {
+            $this->render('pages/admin/categories_add.twig', [
+                'title'       => 'Add category',
+                'description' => 'Categories - Just a simple inventory management system.',
+                'page'        => 'categories'
+            ]);
+        }
     }
 
     public function single($id, $slug) {

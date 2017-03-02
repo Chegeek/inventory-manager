@@ -5,6 +5,8 @@
 }
 
 .category-element {
+    display: flex;
+    flex-grow: 1;
     width: 50%;
     padding: 10px;
     margin-bottom: 0px;

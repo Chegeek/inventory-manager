@@ -65,6 +65,7 @@
         color: $black;
         resize: vertical;
         min-height: 260px;
+        width: 100%;
         transition: $transition;
 
         &:focus, &:active {

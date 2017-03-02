@@ -45,7 +45,7 @@ class Model {
 
         $sql_part = implode(', ', $sql_parts);
 
-        return $this->query("INSERT INTO {$this->table} SET $sql_part", $attributes, true);
+        App::getDb()->insert("INSERT INTO {$this->table} SET $sql_part", $attributes);
     }
 
     public function query($statement, $attributes = null, $one = false) {
