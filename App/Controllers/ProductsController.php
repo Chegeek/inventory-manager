@@ -29,12 +29,14 @@ class ProductsController extends Controller {
     public function all() {
         $model = new ProductsModel();
         $data  = $model->all();
+        $count = count($data);
 
         $this->render('pages/admin/products.twig', [
             'title'       => 'Products',
             'description' => 'Products - Just a simple inventory management system.',
             'page'        => 'products',
-            'products'    => $data
+            'products'    => $data,
+            'count'       => $count
         ]);
     }
 

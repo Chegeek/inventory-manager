@@ -47,6 +47,12 @@ class App {
                 return Settings::getConfig()['url'] . $slug;
             });
 
+            $pad = new \Twig_Function('pad', function ($value, $size = 5) {
+                $s = $value . "";
+                while (strlen($s) < $size) $s = "0" . $s;
+                return $s;
+            });
+
             $title = new \Twig_Function('title', function ($title = null) {
                 if($title) return $title . ' - ' . Settings::getConfig()['name'];
                 else return Settings::getConfig()['name'];
@@ -57,6 +63,7 @@ class App {
             self::$twig->addFunction($excerpt);
             self::$twig->addFunction($url);
             self::$twig->addFunction($title);
+            self::$twig->addFunction($pad);
 
             isset($_SESSION['auth']) ? self::$twig->addGlobal('auth', $_SESSION['auth']) : self::$twig->addGlobal('auth', '');
         }
