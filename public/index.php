@@ -27,6 +27,18 @@ $router->get('/admin/products/', function() {
     $controller->all();
 });
 
+$router->get('/admin/products/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->add();
+});
+
+$router->post('/admin/products/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->add();
+});
+
 $router->get('/admin/categories/', function() {
     App::secured();
     $controller = new \App\Controllers\CategoriesController();

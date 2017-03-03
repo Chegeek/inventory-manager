@@ -4,7 +4,9 @@ namespace App\Controllers;
 use \App\System\App;
 use \App\System\Settings;
 use \App\Controllers\Controller;
+use \App\Models\CategoriesModel;
 use \App\Models\ProductsModel;
+use \App\System\FormValidator;
 
 class ProductsController extends Controller {
 
@@ -55,6 +57,65 @@ class ProductsController extends Controller {
 
         else {
             App::error();
+        }
+    }
+
+    public function add() {
+        if(!empty($_POST)) {
+            $title       = isset($_POST['title']) ? $_POST['title'] : '';
+            $description = isset($_POST['description']) ? $_POST['description'] : '';
+            $category    = isset($_POST['category']) ? $_POST['category'] : '';
+            $price       = isset($_POST['price']) ? (int) $_POST['price'] : '';
+            $quantity    = isset($_POST['quantity']) ? (int) $_POST['quantity'] : '';
+
+            $validator = new FormValidator();
+            $validator->notEmpty('title', $title, "Your title must not be empty");
+            $validator->notEmpty('description', $description, "Your description must not be empty");
+            $validator->validCategory('category', $category, "Your category must be valid");
+            $validator->isNumeric('price', $price, "Your price must be a number");
+            $validator->isInteger('quantity', $quantity, "Your quantity must be a number");
+
+            if($validator->isValid()) {
+                $model = new ProductsModel();
+                $model->create([
+                    'title'       => $title,
+                    'description' => $description,
+                    'category'    => $category,
+                    'price'       => $price,
+                    'quantity'    => $quantity
+                ]);
+
+                App::redirect('admin/products');
+            }
+
+            else {
+                $model = new CategoriesModel();
+                $categories  = $model->all();
+                $this->render('pages/admin/products_add.twig', [
+                    'title'       => 'Add product',
+                    'description' => 'Products - Just a simple inventory management system.',
+                    'page'        => 'products',
+                    'errors'      => $validator->getErrors(),
+                    'categories'  => $categories,
+                    'data'        => [
+                        'title'       => $title,
+                        'description' => $description,
+                        'price'       => $price,
+                        'quantity'    => $quantity
+                    ]
+                ]);
+            }
+        }
+
+        else {
+            $model = new CategoriesModel();
+            $categories  = $model->all();
+            $this->render('pages/admin/products_add.twig', [
+                'title'       => 'Add product',
+                'description' => 'Products - Just a simple inventory management system.',
+                'page'        => 'products',
+                'categories'  => $categories
+            ]);
         }
     }
 
