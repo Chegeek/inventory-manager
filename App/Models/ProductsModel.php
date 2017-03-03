@@ -8,4 +8,11 @@ class ProductsModel extends Model {
 
     protected $table = "products";
 
+    public function all() {
+        return $this->query('SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
+                             FROM products 
+                             LEFT JOIN categories 
+                             ON products.category = categories.id');
+    }
+
 }
