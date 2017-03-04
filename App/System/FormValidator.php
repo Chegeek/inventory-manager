@@ -34,6 +34,34 @@ class FormValidator {
         }
     }
 
+    public function validImage($element, $value, $message) {
+        if(empty($value)) {
+            $this->errors[$element] = $message;
+        }
+
+        else {
+            if(empty($value['type'])) {
+                $this->errors[$element] = $message;
+                return;
+            }
+
+            if(!exif_imagetype($value['tmp_name'])) {
+                $this->errors[$element] = $message;
+                return;
+            }
+
+            if(getimagesize($value["tmp_name"])[0] != getimagesize($value["tmp_name"])[1]) {
+                $this->errors[$element] = "Your media must have the same width and height";
+                return;
+            }
+
+            if($value['size'] > 1000000) {
+                $this->errors[$element] = "Your media is too big (> 1Mo)";
+                return;
+            }
+        }
+    }
+
     public function isValid() {
         if(empty($this->errors)) return true;
         else return false;

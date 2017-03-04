@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use \App\System\App;
+use \App\System\ImageUpload;
 use \App\System\Settings;
 use \App\Controllers\Controller;
 use \App\Models\CategoriesModel;
@@ -67,6 +68,7 @@ class ProductsController extends Controller {
             $category    = isset($_POST['category']) ? $_POST['category'] : '';
             $price       = isset($_POST['price']) ? (int) $_POST['price'] : '';
             $quantity    = isset($_POST['quantity']) ? (int) $_POST['quantity'] : '';
+            $media       = isset($_FILES['media']) ? $_FILES['media'] : '';
 
             $validator = new FormValidator();
             $validator->notEmpty('title', $title, "Your title must not be empty");
@@ -74,15 +76,20 @@ class ProductsController extends Controller {
             $validator->validCategory('category', $category, "Your category must be valid");
             $validator->isNumeric('price', $price, "Your price must be a number");
             $validator->isInteger('quantity', $quantity, "Your quantity must be a number");
+            $validator->validImage('media', $media, "You didn't provided a media or it is invalid");
 
             if($validator->isValid()) {
+                $upload    = new ImageUpload();
+                $media_url = $upload->add($media);
+
                 $model = new ProductsModel();
                 $model->create([
                     'title'       => $title,
                     'description' => $description,
                     'category'    => $category,
                     'price'       => $price,
-                    'quantity'    => $quantity
+                    'quantity'    => $quantity,
+                    'media'       => $media_url
                 ]);
 
                 App::redirect('admin/products');
