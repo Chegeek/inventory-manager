@@ -16,4 +16,28 @@ class ProductsModel extends Model {
                              ORDER BY products.id');
     }
 
+    public function search($order, $query) {
+        if(!empty($query)) {
+            return $this->query('SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
+                                 FROM products 
+                                 LEFT JOIN categories 
+                                 ON products.category = categories.id
+                                 WHERE products.title LIKE ? 
+                                 ORDER BY ?', [
+                "%$query%",
+                $order
+            ]);
+        }
+
+        else {
+            return $this->query('SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
+                                 FROM products 
+                                 LEFT JOIN categories 
+                                 ON products.category = categories.id
+                                 ORDER BY ?', [
+                $order
+            ]);
+        }
+    }
+
 }

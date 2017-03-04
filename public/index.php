@@ -120,6 +120,15 @@ $router->get('/signout/', function() {
     $controller->logout();
 });
 
+$router->get('/admin/api/products', function() {
+    $controller = new \App\Controllers\ProductsController();
+    $controller->search($_GET);
+});
+
+$router->get('/admin/api/index', function() {
+    echo Settings::getConfig()['url'];
+});
+
 $router->error(function() {
     App::error();
 });

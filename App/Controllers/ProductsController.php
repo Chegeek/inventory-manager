@@ -201,7 +201,7 @@ class ProductsController extends Controller {
 
         else {
             $model = new ProductsModel();
-            $data = $model->find($id);
+            $data  = $model->find($id);
             $this->render('pages/admin/products_delete.twig', [
                 'title'       => 'Delete product',
                 'description' => 'Products - Just a simple inventory management system.',
@@ -209,6 +209,16 @@ class ProductsController extends Controller {
                 'data'        => $data
             ]);
         }
+    }
+
+    public function search($get) {
+        $query = isset($get['query']) ? $get['query'] : '';
+        $order = isset($get['order']) ? $get['order'] : '';
+
+        $model = new ProductsModel();
+        $data  = $model->search($order, $query);
+
+        echo json_encode($data);
     }
 
 }
