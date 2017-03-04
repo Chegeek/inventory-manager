@@ -12,7 +12,8 @@ class ProductsModel extends Model {
         return $this->query('SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
                              FROM products 
                              LEFT JOIN categories 
-                             ON products.category = categories.id');
+                             ON products.category = categories.id
+                             ORDER BY products.id');
     }
 
 }

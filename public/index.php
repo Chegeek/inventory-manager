@@ -39,6 +39,30 @@ $router->post('/admin/products/add/', function() {
     $controller->add();
 });
 
+$router->get('/admin/products/:id/edit/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->edit($id);
+})->with('id', '[0-9]+');
+
+$router->post('/admin/products/:id/edit/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->edit($id);
+})->with('id', '[0-9]+');
+
+$router->get('/admin/products/:id/delete/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->delete($id);
+})->with('id', '[0-9]+');
+
+$router->post('/admin/products/:id/delete/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->delete($id);
+})->with('id', '[0-9]+');
+
 $router->get('/admin/categories/', function() {
     App::secured();
     $controller = new \App\Controllers\CategoriesController();

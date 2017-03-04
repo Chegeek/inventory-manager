@@ -126,4 +126,89 @@ class ProductsController extends Controller {
         }
     }
 
+    public function edit($id) {
+        if(!empty($_POST)) {
+            $title       = isset($_POST['title']) ? $_POST['title'] : '';
+            $description = isset($_POST['description']) ? $_POST['description'] : '';
+            $category    = isset($_POST['category']) ? $_POST['category'] : '';
+            $price       = isset($_POST['price']) ? (int) $_POST['price'] : '';
+            $quantity    = isset($_POST['quantity']) ? (int) $_POST['quantity'] : '';
+
+            $validator = new FormValidator();
+            $validator->notEmpty('title', $title, "Your title must not be empty");
+            $validator->notEmpty('description', $description, "Your description must not be empty");
+            $validator->validCategory('category', $category, "Your category must be valid");
+            $validator->isNumeric('price', $price, "Your price must be a number");
+            $validator->isInteger('quantity', $quantity, "Your quantity must be a number");
+
+            if($validator->isValid()) {
+                $model = new ProductsModel();
+                $model->update($id, [
+                    'title'       => $title,
+                    'description' => $description,
+                    'category'    => $category,
+                    'price'       => $price,
+                    'quantity'    => $quantity
+                ]);
+
+                App::redirect('admin/products');
+            }
+
+            else {
+                $model = new CategoriesModel();
+                $categories  = $model->all();
+                $this->render('pages/admin/products_add.twig', [
+                    'title'       => 'Edit product',
+                    'description' => 'Products - Just a simple inventory management system.',
+                    'page'        => 'products',
+                    'errors'      => $validator->getErrors(),
+                    'categories'  => $categories,
+                    'data'        => [
+                        'title'       => $title,
+                        'description' => $description,
+                        'price'       => $price,
+                        'quantity'    => $quantity,
+                        'category'    => $category
+                    ]
+                ]);
+            }
+        }
+
+        else {
+            $model = new CategoriesModel();
+            $categories  = $model->all();
+
+            $model2 = new ProductsModel();
+            $data   = $model2->find($id);
+
+            $this->render('pages/admin/products_edit.twig', [
+                'title'       => 'Edit product',
+                'description' => 'Products - Just a simple inventory management system.',
+                'page'        => 'products',
+                'data'        => $data,
+                'categories'  => $categories
+            ]);
+        }
+    }
+
+    public function delete($id) {
+        if(!empty($_POST)) {
+            $model = new ProductsModel();
+            $model->delete($id);
+
+            App::redirect('admin/products');
+        }
+
+        else {
+            $model = new ProductsModel();
+            $data = $model->find($id);
+            $this->render('pages/admin/products_delete.twig', [
+                'title'       => 'Delete product',
+                'description' => 'Products - Just a simple inventory management system.',
+                'page'        => 'products',
+                'data'        => $data
+            ]);
+        }
+    }
+
 }
