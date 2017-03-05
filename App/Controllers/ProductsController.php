@@ -5,6 +5,7 @@ use \App\System\App;
 use \App\System\ImageUpload;
 use \App\System\Settings;
 use \App\Controllers\Controller;
+use \App\Models\RevisionsModel;
 use \App\Models\CategoriesModel;
 use \App\Models\ProductsModel;
 use \App\System\FormValidator;
@@ -151,17 +152,29 @@ class ProductsController extends Controller {
                     'quantity'    => $quantity
                 ]);
 
+                $revisions = new RevisionsModel();
+                $revisions->create([
+                    'type'    => 'products',
+                    'type_id' => $id,
+                    'user'    => $_SESSION['auth']
+                ]);
+
                 App::redirect('admin/products');
             }
 
             else {
                 $model = new CategoriesModel();
                 $categories  = $model->all();
+
+                $model2 = new RevisionsModel();
+                $revisions = $model2->revisions($id, 'products');
+
                 $this->render('pages/admin/products_add.twig', [
                     'title'       => 'Edit product',
                     'description' => 'Products - Just a simple inventory management system.',
                     'page'        => 'products',
                     'errors'      => $validator->getErrors(),
+                    'revisions'   => $revisions,
                     'categories'  => $categories,
                     'data'        => [
                         'title'       => $title,
@@ -181,10 +194,14 @@ class ProductsController extends Controller {
             $model2 = new ProductsModel();
             $data   = $model2->find($id);
 
+            $model3 = new RevisionsModel();
+            $revisions = $model3->revisions($id, 'products');
+
             $this->render('pages/admin/products_edit.twig', [
                 'title'       => 'Edit product',
                 'description' => 'Products - Just a simple inventory management system.',
                 'page'        => 'products',
+                'revisions'   => $revisions,
                 'data'        => $data,
                 'categories'  => $categories
             ]);

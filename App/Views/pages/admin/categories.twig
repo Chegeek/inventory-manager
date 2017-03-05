@@ -22,7 +22,7 @@
 
                         <h2 class="category-title">{{ category.title }}</h2>
                         <p class="category-description">{{ category.description }}</p>
-                        <span class="category-creation">{{ category.created_at }}</span>
+                        <span>Created </span><span class="category-creation moment-date">{{ category.created_at }}</span>
                     </div>
                 </div>
             {% endfor %}
@@ -41,5 +41,5 @@
 
 {% block extra_scripts %}
     <script src="{{ asset('js/moment.js') }}"></script>
-    <script src="{{ asset('js/categories.min.js') }}"></script>
+    <script src="{{ asset('js/moment_dates.min.js') }}"></script>
 {% endblock %}

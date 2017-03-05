@@ -6,6 +6,7 @@ use \App\System\FormValidator;
 use \App\System\Settings;
 use \App\Controllers\Controller;
 use \App\Models\CategoriesModel;
+use \App\Models\RevisionsModel;
 use \DateTime;
 
 class CategoriesController extends Controller {
@@ -80,14 +81,25 @@ class CategoriesController extends Controller {
                     'description' => $description
                 ]);
 
+                $revisions = new RevisionsModel();
+                $revisions->create([
+                    'type'    => 'categories',
+                    'type_id' => $id,
+                    'user'    => $_SESSION['auth']
+                ]);
+
                 App::redirect('admin/categories');
             }
 
             else {
-                $this->render('pages/admin/categories_add.twig', [
-                    'title'       => 'Add category',
+                $model = new RevisionsModel();
+                $revisions = $model->revisions($id, 'categories');
+
+                $this->render('pages/admin/categories_edit.twig', [
+                    'title'       => 'Edit category',
                     'description' => 'Categories - Just a simple inventory management system.',
                     'page'        => 'categories',
+                    'revisions'   => $revisions,
                     'errors'      => $validator->getErrors(),
                     'data'        => [
                         'title'       => $title,
@@ -100,10 +112,15 @@ class CategoriesController extends Controller {
         else {
             $model = new CategoriesModel();
             $data = $model->find($id);
-            $this->render('pages/admin/categories_add.twig', [
-                'title'       => 'Add category',
+
+            $model2    = new RevisionsModel();
+            $revisions = $model2->revisions($id, 'categories');
+
+            $this->render('pages/admin/categories_edit.twig', [
+                'title'       => 'Edit category',
                 'description' => 'Categories - Just a simple inventory management system.',
                 'page'        => 'categories',
+                'revisions'   => $revisions,
                 'data'        => $data
             ]);
         }

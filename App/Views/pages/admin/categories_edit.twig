@@ -27,6 +27,17 @@
                         <textarea name="description" id="description" rows="8" cols="80" class="{{ errors.description ? 'errors-border' : '' }}">{{ data.description ? data.description : '' }}</textarea>
                     </div>
                 </div>
+
+                {% if revisions %}
+                    <div class="card">
+                        <h3>Latest revisions</h3>
+                        <ul>
+                            {% for revision in revisions %}
+                                <li>Modified by {{ revision.user }} <span class="moment-date">{{ revision.date }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="main-action main-action-success">
@@ -38,4 +49,9 @@
 
 {% block breadcrumb %}
     <a href="{{ url('admin/dashboard') }}" title="Dashboard">Dashboard</a> > <a href="{{ url('admin/categories') }}" title="Categories">Categories</a>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{{ asset('js/moment.js') }}"></script>
+    <script src="{{ asset('js/moment_dates.min.js') }}"></script>
 {% endblock %}
