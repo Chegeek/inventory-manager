@@ -105,6 +105,12 @@ $router->post('/admin/categories/:id/delete/', function($id) {
     $controller->delete($id);
 })->with('id', '[0-9]+');
 
+$router->get('/admin/reports/', function() {
+    App::secured();
+    $controller = new \App\Controllers\ReportsController();
+    $controller->all();
+});
+
 $router->get('/signin/', function() {
     $controller = new \App\Controllers\UsersController();
     $controller->login();
