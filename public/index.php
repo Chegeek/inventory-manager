@@ -105,6 +105,24 @@ $router->post('/admin/categories/:id/delete/', function($id) {
     $controller->delete($id);
 })->with('id', '[0-9]+');
 
+$router->get('/admin/users/', function() {
+    App::secured();
+    $controller = new \App\Controllers\UsersController();
+    $controller->all();
+});
+
+$router->get('/admin/users/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\UsersController();
+    $controller->add();
+});
+
+$router->post('/admin/users/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\UsersController();
+    $controller->add();
+});
+
 $router->get('/admin/reports/', function() {
     App::secured();
     $controller = new \App\Controllers\ReportsController();

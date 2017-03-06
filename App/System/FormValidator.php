@@ -2,6 +2,7 @@
 namespace App\System;
 
 use \App\Models\CategoriesModel;
+use \App\Models\UsersModel;
 
 class FormValidator {
 
@@ -18,6 +19,35 @@ class FormValidator {
         $category = $model->find($value);
 
         if(!$category) {
+            $this->errors[$element] = $message;
+        }
+    }
+
+    public function validPassword($element, $value, $value_verification, $message) {
+        if(empty($value) || ($value != $value_verification)) {
+            $this->errors[$element] = $message;
+        }
+    }
+
+    public function validUsername($element, $value, $message) {
+        if(!preg_match('/[a-z0-9]+/', $value)) {
+            $this->errors[$element] = $message;
+        }
+    }
+
+    public function availableUsername($element, $value, $message) {
+        $model  = new UsersModel();
+        $result = $model->query("SELECT * FROM users WHERE username = ?", [
+            $value
+        ], true);
+
+        if($result) {
+            $this->errors[$element] = $message;
+        }
+    }
+
+    public function validEmail($element, $value, $message) {
+        if(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             $this->errors[$element] = $message;
         }
     }

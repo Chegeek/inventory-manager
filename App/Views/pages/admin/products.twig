@@ -29,51 +29,55 @@
         </div>
 
         <div class="products-grid">
-            {% for product in products %}
-                <div class="product-element">
-                    <div class="product">
-                        <div class="product-id">
-                            <span>{{ pad(product.id) }}</span>
-                        </div>
-
-                        <div class="product-image">
-                            <img src="{{ url('uploads/' ~ product.media) }}" alt="{{ product.title }}">
-                        </div>
-
-                        <div class="product-title">
-                            <span>{{ product.title }}</span>
-                        </div>
-
-                        <div class="product-category">
-                            <span>{{ product.category }}</span>
-                        </div>
-
-                        <div class="product-price">
-                            <span>Price: </span>
-                            <span>${{ product.price }}</span>
-                        </div>
-
-                        <div class="product-quantity">
-                            <span>Quantity:</span>
-                            <span>{{ product.quantity }}</span>
-                        </div>
-
-                        <div class="product-actions">
-                            <div class="product-actions-delete">
-                                <a href="{{ url('admin/products/' ~ product.id ~ '/delete') }}">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a>
+            {% if products %}
+                {% for product in products %}
+                    <div class="product-element">
+                        <div class="product">
+                            <div class="product-id">
+                                <span>{{ pad(product.id) }}</span>
                             </div>
 
-                            <div class="product-actions-edit">
-                                <a href="{{ url('admin/products/' ~ product.id ~ '/edit') }}">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
+                            <div class="product-image">
+                                <img src="{{ url('uploads/' ~ product.media) }}" alt="{{ product.title }}">
+                            </div>
+
+                            <div class="product-title">
+                                <span>{{ product.title }}</span>
+                            </div>
+
+                            <div class="product-category">
+                                <span>{{ product.category }}</span>
+                            </div>
+
+                            <div class="product-price">
+                                <span>Price: </span>
+                                <span>${{ product.price }}</span>
+                            </div>
+
+                            <div class="product-quantity">
+                                <span>Quantity:</span>
+                                <span>{{ product.quantity }}</span>
+                            </div>
+
+                            <div class="product-actions">
+                                <div class="product-actions-delete">
+                                    <a href="{{ url('admin/products/' ~ product.id ~ '/delete') }}">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+
+                                <div class="product-actions-edit">
+                                    <a href="{{ url('admin/products/' ~ product.id ~ '/edit') }}">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>No products to show. Click "Add product" button to create a new one.</p>
+            {% endif %}
         </div>
 
         <div class="main-action main-action-success">

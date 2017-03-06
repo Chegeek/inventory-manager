@@ -6,6 +6,8 @@ use \App\Models\Model;
 
 class UsersModel extends Model {
 
+    protected $table = "users";
+
     public function login($username, $password) {
         $user = App::getDb()->prepare('SELECT * FROM users WHERE username = ?', [$username], true);
 
