@@ -111,6 +111,30 @@ $router->get('/admin/reports/', function() {
     $controller->all();
 });
 
+$router->get('/admin/reports/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\ReportsController();
+    $controller->add();
+});
+
+$router->post('/admin/reports/add/', function() {
+    App::secured();
+    $controller = new \App\Controllers\ReportsController();
+    $controller->add();
+});
+
+$router->get('/admin/reports/:id/delete/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\ReportsController();
+    $controller->delete($id);
+})->with('id', '[0-9]+');
+
+$router->post('/admin/reports/:id/delete/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\ReportsController();
+    $controller->delete($id);
+})->with('id', '[0-9]+');
+
 $router->get('/signin/', function() {
     $controller = new \App\Controllers\UsersController();
     $controller->login();

@@ -211,6 +211,8 @@ class ProductsController extends Controller {
     public function delete($id) {
         if(!empty($_POST)) {
             $model = new ProductsModel();
+            $file  = $model->find($id)->media;
+            unlink(__DIR__ . '/../../public/uploads/' . $file);
             $model->delete($id);
 
             App::redirect('admin/products');

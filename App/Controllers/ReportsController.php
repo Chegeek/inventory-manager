@@ -24,42 +24,40 @@ class ReportsController extends Controller {
 
     public function add() {
         if(!empty($_POST)) {
-            $title       = isset($_POST['title']) ? $_POST['title'] : '';
-            $description = isset($_POST['description']) ? $_POST['description'] : '';
-
+            $title     = isset($_POST['title']) ? $_POST['title'] : '';
             $validator = new FormValidator();
             $validator->notEmpty('title', $title, "Your title must not be empty");
-            $validator->notEmpty('description', $description, "Your description must not be empty");
 
             if($validator->isValid()) {
                 $model = new ReportsModel();
+                $file  = $model->generate();
                 $model->create([
                     'title'       => $title,
-                    'description' => $description
+                    'file'        => $file,
+                    'user'        => $_SESSION['auth']
                 ]);
 
-                App::redirect('admin/categories');
+                App::redirect('admin/reports');
             }
 
             else {
-                $this->render('pages/admin/categories_add.twig', [
-                    'title'       => 'Add category',
-                    'description' => 'Categories - Just a simple inventory management system.',
-                    'page'        => 'categories',
+                $this->render('pages/admin/reports_add.twig', [
+                    'title'       => 'Add report',
+                    'description' => 'Reports - Just a simple inventory management system.',
+                    'page'        => 'reports',
                     'errors'      => $validator->getErrors(),
                     'data'        => [
                         'title'       => $title,
-                        'description' => $description
                     ]
                 ]);
             }
         }
 
         else {
-            $this->render('pages/admin/categories_add.twig', [
-                'title'       => 'Add category',
-                'description' => 'Categories - Just a simple inventory management system.',
-                'page'        => 'categories'
+            $this->render('pages/admin/reports_add.twig', [
+                'title'       => 'Add report',
+                'description' => 'Reports - Just a simple inventory management system.',
+                'page'        => 'reports'
             ]);
         }
     }
@@ -67,18 +65,20 @@ class ReportsController extends Controller {
     public function delete($id) {
         if(!empty($_POST)) {
             $model = new ReportsModel();
+            $file  = $model->find($id)->file;
+            unlink(__DIR__ . '/../../public/uploads/' . $file);
             $model->delete($id);
 
-            App::redirect('admin/categories');
+            App::redirect('admin/reports');
         }
 
         else {
             $model = new ReportsModel();
             $data = $model->find($id);
-            $this->render('pages/admin/categories_delete.twig', [
-                'title'       => 'Delete category',
-                'description' => 'Categories - Just a simple inventory management system.',
-                'page'        => 'categories',
+            $this->render('pages/admin/reports_delete.twig', [
+                'title'       => 'Delete report',
+                'description' => 'Reports - Just a simple inventory management system.',
+                'page'        => 'reports',
                 'data'        => $data
             ]);
         }
