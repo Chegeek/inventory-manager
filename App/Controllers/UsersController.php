@@ -58,7 +58,6 @@ class UsersController extends Controller {
                 $mailer->msgHTML($content);
                 $mailer->send();
 
-
                 App::redirect('admin/users');
             }
 
@@ -85,6 +84,26 @@ class UsersController extends Controller {
         }
     }
 
+    public function delete($id) {
+        if(!empty($_POST)) {
+            $model = new UsersModel();
+            $model->delete($id);
+
+            App::redirect('admin/users');
+        }
+
+        else {
+            $model = new UsersModel();
+            $data = $model->find($id);
+            $this->render('pages/admin/users_delete.twig', [
+                'title'       => 'Delete user',
+                'description' => 'Users - Just a simple inventory management system.',
+                'page'        => 'users',
+                'data'        => $data
+            ]);
+        }
+    }
+
     public function login() {
         if(!empty($_POST)) {
             $model = new UsersModel();
@@ -93,7 +112,14 @@ class UsersController extends Controller {
             $password = isset($_POST['password']) ? hash('sha256', Settings::getConfig()['salt'] . $_POST['password']) : '';
 
             if($model->login($username, $password)) {
-                $_SESSION['auth'] = $username;
+                $user = $model->query("SELECT * FROM users WHERE username = ?", [
+                    $username
+                ], true);
+
+                $_SESSION['auth']  = $username;
+                $_SESSION['id']    = $user->id;
+                $_SESSION['email'] = $user->email;
+
                 App::redirect('admin/dashboard');
             }
 

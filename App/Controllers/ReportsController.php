@@ -4,6 +4,7 @@ namespace App\Controllers;
 use \App\System\App;
 use \App\System\FormValidator;
 use \App\System\Settings;
+use \App\System\Mailer;
 use \App\Controllers\Controller;
 use \App\Models\ReportsModel;
 use \DateTime;
@@ -36,6 +37,21 @@ class ReportsController extends Controller {
                     'file'        => $file,
                     'user'        => $_SESSION['auth']
                 ]);
+
+                $content = App::getTwig()->render('mail_report.twig', [
+                    'username'    => $_SESSION['auth'],
+                    'file'        => $title,
+                    'link'        => Settings::getConfig()['url'] . 'uploads/' . $file,
+                    'title'       => Settings::getConfig()['name'],
+                    'description' => Settings::getConfig()['description']
+                ]);
+
+                $mailer = new Mailer();
+                $mailer->setFrom(Settings::getConfig()['mail']['from'], 'Mailer');
+                $mailer->addAddress($_SESSION['email']);
+                $mailer->Subject = 'Hello ' . $_SESSION['auth'] . ', your report is ready!';
+                $mailer->msgHTML($content);
+                $mailer->send();
 
                 App::redirect('admin/reports');
             }

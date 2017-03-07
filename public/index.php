@@ -123,6 +123,18 @@ $router->post('/admin/users/add/', function() {
     $controller->add();
 });
 
+$router->get('/admin/users/:id/delete/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\UsersController();
+    $controller->delete($id);
+})->with('id', '[0-9]+');
+
+$router->post('/admin/users/:id/delete/', function($id) {
+    App::secured();
+    $controller = new \App\Controllers\UsersController();
+    $controller->delete($id);
+})->with('id', '[0-9]+');
+
 $router->get('/admin/reports/', function() {
     App::secured();
     $controller = new \App\Controllers\ReportsController();
