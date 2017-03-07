@@ -193,11 +193,13 @@ $router->get('/signout/', function() {
 });
 
 $router->get('/admin/api/products', function() {
+    App::secured();
     $controller = new \App\Controllers\ProductsController();
     $controller->search($_GET);
 });
 
 $router->get('/admin/api/index', function() {
+    App::secured();
     echo Settings::getConfig()['url'];
 });
 
