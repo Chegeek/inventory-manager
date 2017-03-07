@@ -2,6 +2,7 @@ environment: 'dev'
 
 dev:
     name: 'Pokedex'
+    description: 'Just a simple inventory manager'
     url: 'http://localhost:8888/'
     database:
         username: 'root'
@@ -16,6 +17,12 @@ dev:
         stylesheet: false
         javascript: false
     salt: '8dezY!2deH'
+    mail:
+        from: 'root@root.com'
+        host: 'localhost'
+        username: null
+        password: null
+        port: 1025
 
 prod:
     url: 'http://localhost:8888/'

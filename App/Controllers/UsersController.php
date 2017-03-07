@@ -43,11 +43,19 @@ class UsersController extends Controller {
                     'password' => hash('sha256', Settings::getConfig()['salt'] . $password)
                 ]);
 
+                $content = App::getTwig()->render('mail_new.twig', [
+                    'username'    => $username,
+                    'password'    => $password,
+                    'title'       => Settings::getConfig()['name'],
+                    'description' => Settings::getConfig()['description'],
+                    'link'        => Settings::getConfig()['url'] . 'signin'
+                ]);
+
                 $mailer = new Mailer();
-                $mailer->setFrom('gregoire.mielle@gmail.com', 'Mailer');
-                $mailer->addAddress('gregoiremielle@gmail.com', 'Joe User');
-                $mailer->Subject = 'Here is the subject';
-                $mailer->Body    = 'This is the HTML message body <b>in bold!</b>';
+                $mailer->setFrom(Settings::getConfig()['mail']['from'], 'Mailer');
+                $mailer->addAddress($email);
+                $mailer->Subject = 'Hello ' . $username . ', welcome on board!';
+                $mailer->msgHTML($content);
                 $mailer->send();
 
 
