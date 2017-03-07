@@ -45,8 +45,8 @@ class Products {
             }
         }
 
-        xhttp.open('GET', `api/products/?query=${search}&order=${order}`, true);
-        xhttp.send();
+        xhttp.open('GET', `api/products/?query=${search}&order=${order}`, true)
+        xhttp.send()
     }
 
     base_url() {

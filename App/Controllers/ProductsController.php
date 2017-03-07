@@ -8,6 +8,7 @@ use \App\Controllers\Controller;
 use \App\Models\RevisionsModel;
 use \App\Models\CategoriesModel;
 use \App\Models\ProductsModel;
+use \App\Models\ReportsModel;
 use \App\System\FormValidator;
 
 class ProductsController extends Controller {
@@ -20,13 +21,32 @@ class ProductsController extends Controller {
 
     public function index() {
         $model = new ProductsModel();
-        $data  = $model->all();
+        $value = $model->value();
+        $count = $model->count();
+        $average_quantity = $model->average('quantity');
+        $average_price    = $model->average('price');
+        $lows_products    = $model->low(5);
+
+        $model2 = new CategoriesModel();
+        $categories_value = $model2->allotment();
+
+        $model3  = new ReportsModel();
+        $reports = $model3->all();
+
+        $stats = [
+            'value' => $value,
+            'count' => $count,
+            'average_quantity' => round($average_quantity, 2),
+            'average_price'    => '$' .round($average_price, 2),
+            'lows_products'    => $lows_products,
+            'reports'          => $reports
+        ];
 
         $this->render('pages/admin/dashboard.twig', [
             'title'       => 'Dashboard',
             'description' => 'Dashboard - Just a simple inventory management system.',
             'page'        => 'dashboard',
-            'products'    => $data
+            'stats'       => $stats
         ]);
     }
 
@@ -42,24 +62,6 @@ class ProductsController extends Controller {
             'products'    => $data,
             'count'       => $count
         ]);
-    }
-
-    public function single($id, $slug) {
-        $model = new ProductsModel();
-        $data  = $model->find($id);
-
-        if($data->slug === $slug) {
-            $this->render('pages/single.twig', [
-                'title'       => 'Single',
-                'description' => 'Just a simple inventory management system.',
-                'page'        => 'products',
-                'post' => $data
-            ]);
-        }
-
-        else {
-            App::error();
-        }
     }
 
     public function add() {
@@ -268,7 +270,7 @@ class ProductsController extends Controller {
         $count = $model->count();
         $average_quantity = $model->average('quantity');
         $average_price    = $model->average('price');
-        $lows_products    = $model->low(1);
+        $lows_products    = $model->low(5);
 
         $model2 = new CategoriesModel();
         $categories_value = $model2->allotment();

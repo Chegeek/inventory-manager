@@ -39,6 +39,11 @@ span, p, li {
     line-height: 1.5;
 }
 
+.sub {
+    font-size: 0.9em;
+    color: $black-2;
+}
+
 input:focus {
     outline: none;
 }
