@@ -84,6 +84,59 @@ class UsersController extends Controller {
         }
     }
 
+    public function edit($id) {
+        if(!empty($_POST)) {
+            $username = isset($_POST['username']) ? $_POST['username'] : '';
+            $email    = isset($_POST['email']) ? $_POST['email'] : '';
+
+            $validator = new FormValidator();
+            $validator->validUsername('username', $username, "Your username is not valid (no spaces, uppercase, special character)");
+            $validator->validEmail('email', $email, "Your email is not valid");
+
+            if($validator->isValid()) {
+                $model = new UsersModel();
+                $model->update($id, [
+                    'username' => $username,
+                    'email'    => $email
+                ]);
+
+                if($_SESSION['id'] == $id) {
+                    $this->logout();
+                    App::redirect('signin');
+                }
+
+                else {
+                    App::redirect('admin/users');
+                }
+            }
+
+            else {
+                $this->render('pages/admin/users_edit.twig', [
+                    'title'       => 'Edit user',
+                    'description' => 'Users - Just a simple inventory management system.',
+                    'page'        => 'users',
+                    'errors'      => $validator->getErrors(),
+                    'data'        => [
+                        'username' => $username,
+                        'email'    => $email
+                    ]
+                ]);
+            }
+        }
+
+        else {
+            $model = new UsersModel();
+            $data = $model->find($id);
+
+            $this->render('pages/admin/users_edit.twig', [
+                'title'       => 'Edit user',
+                'description' => 'Users - Just a simple inventory management system.',
+                'page'        => 'users',
+                'data'        => $data
+            ]);
+        }
+    }
+
     public function delete($id) {
         if(!empty($_POST)) {
             $model = new UsersModel();
