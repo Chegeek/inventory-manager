@@ -164,4 +164,20 @@ class CategoriesController extends Controller {
         }
     }
 
+    public function api($id = null) {
+        if($id) {
+            $model = new CategoriesModel();
+            $data  = $model->find($id);
+
+            echo json_encode($data);
+        }
+
+        else {
+            $model = new CategoriesModel();
+            $data  = $model->all();
+
+            echo json_encode($data);
+        }
+    }
+
 }

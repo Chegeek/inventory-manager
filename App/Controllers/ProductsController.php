@@ -240,4 +240,26 @@ class ProductsController extends Controller {
         echo json_encode($data);
     }
 
+    public function api($id = null) {
+        if($id) {
+            $model = new ProductsModel();
+            $data  = $model->find($id);
+
+            $data->media = Settings::getConfig()['url'] . 'uploads/' . $data->media;;
+
+            echo json_encode($data);
+        }
+
+        else {
+            $model = new ProductsModel();
+            $data  = $model->all();
+
+            foreach($data as $key => $element) {
+                $data[$key]->media = Settings::getConfig()['url'] . 'uploads/' . $data[$key]->media;
+            }
+
+            echo json_encode($data);
+        }
+    }
+
 }

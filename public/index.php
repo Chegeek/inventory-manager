@@ -201,6 +201,26 @@ $router->get('/admin/api/index', function() {
     echo Settings::getConfig()['url'];
 });
 
+$router->get('/api/products/', function() {
+    $controller = new \App\Controllers\ProductsController();
+    $controller->api();
+});
+
+$router->get('/api/products/:id/', function($id) {
+    $controller = new \App\Controllers\ProductsController();
+    $controller->api($id);
+});
+
+$router->get('/api/categories/', function() {
+    $controller = new \App\Controllers\CategoriesController();
+    $controller->api();
+});
+
+$router->get('/api/categories/:id/', function($id) {
+    $controller = new \App\Controllers\CategoriesController();
+    $controller->api($id);
+});
+
 $router->error(function() {
     App::error();
 });
