@@ -198,6 +198,12 @@ $router->get('/admin/api/products', function() {
     $controller->search($_GET);
 });
 
+$router->get('/admin/api/stats', function() {
+    App::secured();
+    $controller = new \App\Controllers\ProductsController();
+    $controller->stats();
+});
+
 $router->get('/admin/api/index', function() {
     App::secured();
     echo Settings::getConfig()['url'];

@@ -1,0 +1,20 @@
+.important-facts {
+    display: flex;
+
+    .card {
+        height: 100%;
+        text-align: center;
+
+        span {
+            color: $black;
+            font-weight: bold;
+            font-size: 2em;
+        }
+
+        p {
+            font-size: 1em;
+            width: 70%;
+            margin: 0 auto;
+        }
+    }
+}

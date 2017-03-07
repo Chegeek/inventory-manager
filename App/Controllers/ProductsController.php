@@ -262,4 +262,27 @@ class ProductsController extends Controller {
         }
     }
 
+    public function stats() {
+        $model = new ProductsModel();
+        $value = $model->value();
+        $count = $model->count();
+        $average_quantity = $model->average('quantity');
+        $average_price    = $model->average('price');
+        $lows_products    = $model->low(1);
+
+        $model2 = new CategoriesModel();
+        $categories_value = $model2->allotment();
+
+        $stats = [
+            'value' => $value,
+            'count' => $count,
+            'average_quantity' => $average_quantity,
+            'average_price'    => $average_price,
+            'categories'       => $categories_value,
+            'lows_products'    => $lows_products
+        ];
+
+        echo json_encode($stats);
+    }
+
 }
