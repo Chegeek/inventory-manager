@@ -13,9 +13,6 @@ dev:
     debug: true
     twig:
         cache: false
-    minify:
-        stylesheet: false
-        javascript: false
     salt: '8dezY!2deH'
     mail:
         from: 'root@root.com'
@@ -25,16 +22,22 @@ dev:
         port: 1025
 
 prod:
+    name: 'Pokedex'
+    description: 'Just a simple inventory manager'
     url: 'http://localhost:8888/'
     database:
         username: 'root'
         password: 'root'
-        name: 'blog'
+        name: 'inventory'
         host: 'localhost'
         type: 'mysql'
     debug: false
     twig:
-        cache: true
-    minify:
-        stylesheet: true
-        javascript: true
+        cache: false
+    salt: '8dezY!2deH'
+    mail:
+        from: 'root@root.com'
+        host: 'localhost'
+        username: null
+        password: null
+        port: 1025

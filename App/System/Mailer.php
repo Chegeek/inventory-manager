@@ -4,6 +4,7 @@ namespace App\System;
 use \PHPMailer;
 
 class Mailer extends PHPMailer {
+
     public function __construct() {
         parent::__construct();
         $this->isSMTP();
@@ -19,4 +20,5 @@ class Mailer extends PHPMailer {
             )
         );
     }
+
 }

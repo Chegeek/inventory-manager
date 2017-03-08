@@ -9,53 +9,53 @@ class ProductsModel extends Model {
     protected $table = "products";
 
     public function all() {
-        return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
+        return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category
                              FROM {$this->table}
-                             LEFT JOIN categories 
+                             LEFT JOIN categories
                              ON products.category = categories.id
                              ORDER BY products.id");
     }
 
     public function search($order, $query) {
         if($order == 'quantity') {
-            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
-                                 FROM {$this->table} 
-                                 LEFT JOIN categories 
+            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category
+                                 FROM {$this->table}
+                                 LEFT JOIN categories
                                  ON products.category = categories.id
-                                 WHERE products.title LIKE ? 
+                                 WHERE products.title LIKE ?
                                  ORDER BY products.quantity", [
                 "%$query%"
             ]);
         }
 
         else if($order == 'id') {
-            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
-                                 FROM {$this->table} 
-                                 LEFT JOIN categories 
+            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category
+                                 FROM {$this->table}
+                                 LEFT JOIN categories
                                  ON products.category = categories.id
-                                 WHERE products.title LIKE ? 
+                                 WHERE products.title LIKE ?
                                  ORDER BY products.id", [
                 "%$query%"
             ]);
         }
 
         else if($order == 'price') {
-            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
-                                 FROM {$this->table} 
-                                 LEFT JOIN categories 
+            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category
+                                 FROM {$this->table}
+                                 LEFT JOIN categories
                                  ON products.category = categories.id
-                                 WHERE products.title LIKE ? 
+                                 WHERE products.title LIKE ?
                                  ORDER BY products.price", [
                 "%$query%"
             ]);
         }
 
         else if($order == 'category') {
-            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
-                                 FROM {$this->table} 
-                                 LEFT JOIN categories 
+            return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category
+                                 FROM {$this->table}
+                                 LEFT JOIN categories
                                  ON products.category = categories.id
-                                 WHERE products.title LIKE ? 
+                                 WHERE products.title LIKE ?
                                  ORDER BY products.category", [
                 "%$query%"
             ]);
@@ -85,13 +85,19 @@ class ProductsModel extends Model {
             $column_total+= $item->$column;
         }
 
-        return $column_total / $count;
+        if($count == 0) {
+            return 0;
+        }
+
+        else {
+            return $column_total / $count;
+        }
     }
 
     public function low($count) {
-        return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category 
+        return $this->query("SELECT products.id, products.title, products.price, products.quantity, products.media, categories.title AS category
                              FROM {$this->table}
-                             LEFT JOIN categories 
+                             LEFT JOIN categories
                              ON products.category = categories.id
                              ORDER BY products.quantity ASC
                              LIMIT $count");

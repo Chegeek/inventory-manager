@@ -22,7 +22,7 @@
                             </div>
 
                             <h2 class="category-title">{{ category.title }}</h2>
-                            <p class="category-description">{{ category.description }}</p>
+                            <p class="category-description">{{ excerpt(category.description, 220) }}</p>
                             <span>Created </span><span class="category-creation moment-date">{{ category.created_at }}</span>
                         </div>
                     </div>

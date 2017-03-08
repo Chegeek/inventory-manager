@@ -1,5 +1,6 @@
 <?php
 namespace App\System;
+
 use \PDO;
 
 class Database {
@@ -67,5 +68,5 @@ class Database {
             $req->execute($attributes);
         }
     }
-    
+
 }

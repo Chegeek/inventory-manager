@@ -10,8 +10,15 @@ class App {
     private static $twig;
 
     public function __construct() {
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
+        if(Settings::getConfig()['debug']) {
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+        }
+
+        else {
+            error_reporting(0);
+            ini_set('display_errors', 0);
+        }
     }
 
     public static function getDb() {
@@ -39,8 +46,8 @@ class App {
                 return Settings::getConfig()['url'] . 'assets/' . $path;
             });
 
-            $excerpt = new \Twig_Function('excerpt', function ($content) {
-                return substr($content, 0, 300) . '...';
+            $excerpt = new \Twig_Function('excerpt', function ($content, $size = 300) {
+                return substr($content, 0, $size) . '...';
             });
 
             $url = new \Twig_Function('url', function ($slug, $id = null, $post_type = null) {

@@ -8,7 +8,9 @@ use \App\Models\UsersModel;
 
 session_start();
 
+$app    = new App();
 $router = new Router($_GET);
+
 
 $router->get('/', function() {
     $controller = new \App\Controllers\ProductsController();

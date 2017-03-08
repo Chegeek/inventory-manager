@@ -15,6 +15,7 @@ class ProductsController extends Controller {
 
     public function blank() {
         $this->render('pages/index.twig', [
+            'title'       => 'Home',
             'description' => 'Just a simple inventory management system.'
         ]);
     }
@@ -36,7 +37,7 @@ class ProductsController extends Controller {
         $stats = [
             'value' => $value,
             'count' => $count,
-            'average_quantity' => round($average_quantity, 2),
+            'average_quantity' => round($average_quantity),
             'average_price'    => '$' .round($average_price, 2),
             'lows_products'    => $lows_products,
             'reports'          => $reports

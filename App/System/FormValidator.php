@@ -80,11 +80,6 @@ class FormValidator {
                 return;
             }
 
-            if(getimagesize($value["tmp_name"])[0] != getimagesize($value["tmp_name"])[1]) {
-                $this->errors[$element] = "Your media must have the same width and height";
-                return;
-            }
-
             if($value['size'] > 1000000) {
                 $this->errors[$element] = "Your media is too big (> 1Mo)";
                 return;

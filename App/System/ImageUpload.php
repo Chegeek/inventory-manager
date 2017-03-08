@@ -2,6 +2,7 @@
 namespace App\System;
 
 class ImageUpload {
+
     public function add($media) {
         $target_dir    = __DIR__ . '/../../public/uploads/';
         $temp          = explode('.', $media['name']);
@@ -16,4 +17,5 @@ class ImageUpload {
             throw new \Error("File couldn't be uploaded.");
         }
     }
+    
 }
