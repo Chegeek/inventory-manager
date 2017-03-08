@@ -2,6 +2,8 @@
 
 A simple inventory management system written in OOP PHP. Create, edit, delete products & categories, manage users, create reports, etc.
 
+![Inventory manager](https://github.com/greeeg/inventory-manager/blob/master/src/img/screenshot.png?raw=true)
+
 ### Features
 * Products with quantity, price
 * Categories linked to products
