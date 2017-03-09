@@ -250,6 +250,7 @@ class ProductsController extends Controller {
 
             $data->media = Settings::getConfig()['url'] . 'uploads/' . $data->media;;
 
+            header('Content-Type: application/json');
             echo json_encode($data);
         }
 
@@ -261,6 +262,7 @@ class ProductsController extends Controller {
                 $data[$key]->media = Settings::getConfig()['url'] . 'uploads/' . $data[$key]->media;
             }
 
+            header('Content-Type: application/json');
             echo json_encode($data);
         }
     }

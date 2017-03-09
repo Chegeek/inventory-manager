@@ -24,7 +24,29 @@ A simple inventory management system written in OOP PHP. Create, edit, delete pr
 - Use `composer dump-autoload` on root folder
 - Import database structure from `database.sql`
 - Update config values in `App/config.yml`
+- Set the `public` folder as Web server root
 - Run `maildev` to start capturing emails locally
+
+#### Identification
+To successfully sign in to the admin dashboard, use `root` & `root` as username and password.
+
+#### API endpoints
+The base URL for all API resources is the url specified in the `App/config.yml` followed by `/api`. The default returned MIME type for requests is always `application/json`.
+
+##### Products
+
+| Endpoint | Description |
+| ---- | --------------- |
+| GET /products/ | Get products list |
+| GET /products/:id/ | Get product details |
+
+##### Categories
+
+| Endpoint | Description |
+| ---- | --------------- |
+| GET /categories/ | Get categories list |
+| GET /categories/:id/ | Get category details |
+
 
 #### Edit the project
 If you wish to update project files, all assets sources are available in the `src` folder with a gulp configuration to update output assets.

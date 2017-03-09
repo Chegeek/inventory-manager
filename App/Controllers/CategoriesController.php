@@ -169,6 +169,7 @@ class CategoriesController extends Controller {
             $model = new CategoriesModel();
             $data  = $model->find($id);
 
+            header('Content-Type: application/json');
             echo json_encode($data);
         }
 
@@ -176,6 +177,7 @@ class CategoriesController extends Controller {
             $model = new CategoriesModel();
             $data  = $model->all();
 
+            header('Content-Type: application/json');
             echo json_encode($data);
         }
     }
