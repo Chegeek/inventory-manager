@@ -36,7 +36,7 @@ class App {
 
     public static function getTwig() {
         if(self::$twig === null) {
-            $loader = new \Twig_Loader_Filesystem(dirname(__DIR__) . '/views');
+            $loader = new \Twig_Loader_Filesystem(dirname(__DIR__) . '/Views');
 
             self::$twig = new \Twig_Environment($loader, [
                 'cache' => Settings::getConfig()['twig']['cache']
