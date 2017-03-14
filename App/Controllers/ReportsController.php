@@ -35,7 +35,8 @@ class ReportsController extends Controller {
                 $model->create([
                     'title'       => $title,
                     'file'        => $file,
-                    'user'        => $_SESSION['auth']
+                    'user'        => $_SESSION['auth'],
+                    'created_at'  => date('Y-m-d H:i:s')
                 ]);
 
                 $content = App::getTwig()->render('mail_report.twig', [

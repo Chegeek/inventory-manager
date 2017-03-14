@@ -36,7 +36,8 @@ class CategoriesController extends Controller {
                 $model = new CategoriesModel();
                 $model->create([
                     'title'       => $title,
-                    'description' => $description
+                    'description' => $description,
+                    'created_at'  => date('Y-m-d H:i:s')
                 ]);
 
                 App::redirect('admin/categories');

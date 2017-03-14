@@ -93,7 +93,8 @@ class ProductsController extends Controller {
                     'category'    => $category,
                     'price'       => $price,
                     'quantity'    => $quantity,
-                    'media'       => $media_url
+                    'media'       => $media_url,
+                    'created_at'  => date('Y-m-d H:i:s')
                 ]);
 
                 App::redirect('admin/products');

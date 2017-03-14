@@ -38,9 +38,10 @@ class UsersController extends Controller {
             if($validator->isValid()) {
                 $model = new UsersModel();
                 $model->create([
-                    'username' => $username,
-                    'email'    => $email,
-                    'password' => hash('sha256', Settings::getConfig()['salt'] . $password)
+                    'username'   => $username,
+                    'email'      => $email,
+                    'password'   => hash('sha256', Settings::getConfig()['salt'] . $password),
+                    'created_at' => date('Y-m-d H:i:s')
                 ]);
 
                 $content = App::getTwig()->render('mail_new.twig', [
